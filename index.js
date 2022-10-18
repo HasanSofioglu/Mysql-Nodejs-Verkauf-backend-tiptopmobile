@@ -32,24 +32,7 @@ app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post('/upload/:id', (req, res) => {
-  const pid = req.params.id;
-  console.log(pid)
-  if (req.files === null) {
-    return res.status(400).json({ msg: 'No file uploaded' });
-  }
 
-  const file = req.files.file;
-
-  file.mv(`${__dirname}/verkauf-page/public/phoneImg/${pid+".png"}`, err => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
-
-    res.json({ fileName: file.name, filePath: `/phoneImg/${file.name}` });
-  });
-});
 
 app.post("/api/phone/insert", (req,res)=>{
 

@@ -20,12 +20,7 @@ const db = mysql.createPool({
     database:"VERKAUFDataBase", 
 });
 const fileUpload = require('express-fileupload');
-app.use(  cors({
-  origin: ["http://localhost:3000"],
-  methods: ["GET", "POST"],
-  credentials: true,
-})
-);    
+app.use(cors());    
 
 app.use(express())
 app.use(fileUpload());
@@ -203,7 +198,7 @@ const saltRounds = 10;
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://139.59.139.115:3000"],
     methods: ["GET", "POST"],
     credentials: true,
   })

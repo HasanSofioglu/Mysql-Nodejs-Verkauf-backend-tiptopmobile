@@ -14,20 +14,52 @@ const { markAsUntransferable } = require('worker_threads');
 
 
 const db = mysql.createPool({
-    host:"139.59.139.115",
+    host:"localhost",
     user: "root",
     password:"password",
     database:"VERKAUFDataBase", 
 });
 const fileUpload = require('express-fileupload');
-app.use(cors());    
+ 
 
 app.use(express())
 app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 
+  
+app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://159.223.22.74:3000/"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
+
+
+
+app.post('/upload/:id', (req, res) => {
+  const pid = req.params.id;
+  console.log(pid)
+  if (req.files === null) {
+    return res.status(400).json({ msg: 'No file uploaded' });
+  }
+
+  const file = req.files.file;
+
+  file.mv(`${__dirname}/public/phoneImg/${pid+".png"}`, err => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+
+    res.json({ fileName: file.name, filePath: `/phoneImg/${file.name}` });
+  });
+});
 
 app.post("/api/phone/insert", (req,res)=>{
 
@@ -190,19 +222,7 @@ app.get("/api/detail/:phoneId",(req,res)=>{
 });
 
 
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
 
-
-  
-app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://139.59.139.115:3000"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
-);
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -276,6 +296,7 @@ app.post("/login", (req, res) => {
   );
 });
 
-
+app.use(express.static('public')); 
+app.use('/phoneImg', express.static('images'));
 
 app.listen(3001);

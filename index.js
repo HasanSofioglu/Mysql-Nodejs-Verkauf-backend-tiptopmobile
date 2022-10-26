@@ -267,7 +267,7 @@ app.get("/logincheck", (req, res) => {
   }
 });
 
-app.post("/login", (req, res) => {
+app.get("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 

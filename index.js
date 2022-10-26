@@ -14,9 +14,9 @@ const { markAsUntransferable } = require('worker_threads');
 
 
 const db = mysql.createPool({
-    host:"%",
-    user: "admin",
-    password:"admin",
+    host:"localhost",
+    user: "root",
+    password:"19682121",
     database:"VERKAUFDataBase", 
 });
 const fileUpload = require('express-fileupload');

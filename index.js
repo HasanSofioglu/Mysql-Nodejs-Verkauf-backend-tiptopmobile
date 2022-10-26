@@ -14,7 +14,7 @@ const { markAsUntransferable } = require('worker_threads');
 
 
 const db = mysql.createPool({
-    host:"localhost",
+    host:"159.223.22.74",
     user: "root",
     password:"19682121",
     database:"VERKAUFDataBase", 

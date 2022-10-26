@@ -279,7 +279,7 @@ app.post("/login", (req, res) => {
         res.send({ err: err });
       }
 
-      if (result?.length > 0) {
+      if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
             req.session.user = result;

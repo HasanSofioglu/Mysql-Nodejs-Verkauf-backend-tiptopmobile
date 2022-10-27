@@ -194,12 +194,40 @@ app.get("/api/get",(req,res)=>{
  
   });
 });
+app.get("/login",(req,res)=>{
 
-app.get("/api/form",(req,res)=>{
-
-  const sqlSelect= "SELECT * FROM phone_form"
+  const sqlSelect= "SELECT * FROM Phones"
 
   db.query(sqlSelect,(err,result)=>{
+    if (err) {
+      res.send({ err: err });
+    }
+
+    if (result.length > 0) {
+      bcrypt.compare(password, result[0].password, (error, response) => {
+        if (response) {
+          req.session.user = result;
+       
+          res.send(result);
+        } else {
+          res.send({ message: "Wrong username/password combination!" });
+        }
+      });
+    } else {
+      res.send({ message: "User doesn't exist" });
+    }
+ 
+  });
+});
+
+app.get("/api/form",(req,res)=>{
+  const username = req.body.username;
+  const password = req.body.password;
+
+
+  const sqlSelect=  "SELECT * FROM users WHERE username = ?;"
+
+  db.query(sqlSelect,username,(err,result)=>{
 
       res.send(result);  
  
@@ -259,7 +287,7 @@ app.post("/register", (req, res) => {
   });
 });
 
-app.get("/logincheck", (req, res) => {
+app.post("/logincheck", (req, res) => {
   if (req.session.user) {
     res.send({ loggedIn: true, user: req.session.user });
   } else {
@@ -267,34 +295,7 @@ app.get("/logincheck", (req, res) => {
   }
 });
 
-app.post("/login", (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
 
-  db.query(
-    "SELECT * FROM users WHERE username = ?;",
-    username,
-    (err, result) => {
-      if (err) {
-        res.send({ err: err });
-      }
-
-      if (result.length > 0) {
-        bcrypt.compare(password, result[0].password, (error, response) => {
-          if (response) {
-            req.session.user = result;
-         
-            res.send(result);
-          } else {
-            res.send({ message: "Wrong username/password combination!" });
-          }
-        });
-      } else {
-        res.send({ message: "User doesn't exist" });
-      }
-    }
-  );
-});
 
 app.use(express.static('public')); 
 app.use('/phoneImg', express.static('images'));

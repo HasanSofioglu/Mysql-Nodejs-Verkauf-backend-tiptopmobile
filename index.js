@@ -34,7 +34,7 @@ const saltRounds = 10;
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://159.223.22.74:3000"],
+    origin: ["http://161.35.64.20:3000"],
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -267,21 +267,11 @@ app.get("/logincheck", (req, res) => {
   }
 });
 
-app.get("/login", (req, res) => {
+app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  if (!req.body.name) {
-    return res.status(400).json({
-      status: 'error',
-      error: 'req body cannot be empty',
-    });
-  }
 
-  res.status(200).json({
-    status: 'succes',
-    data: req.body,
-  })
-   db.query(
+  db.query(
     "SELECT * FROM users WHERE username = ?;",
     username,
     (err, result) => {

@@ -13,11 +13,18 @@ const { markAsUntransferable } = require('worker_threads');
 
 
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
     host:"localhost",
     user: "root",
     password:"19682121",
-    database:"VERKAUFDataBase", 
+    database:"VERKAUFDataBase"
+});
+connection.connect((err) => {
+  if (err) {
+      console.log('Connection error message: ' + err.message);
+      return;
+  }
+  console.log('Connected!')
 });
 const fileUpload = require('express-fileupload');
  
@@ -276,7 +283,7 @@ app.get("/login", (req, res) => {
     username,
     (err, result) => {
       if (err) {
-        res.status(500).json({error: err})
+        res.send({ err: err });
       }
 
       if (result) {

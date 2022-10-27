@@ -15,8 +15,8 @@ const { markAsUntransferable } = require('worker_threads');
 
 const db = mysql.createConnection({
     host:"localhost",
-    user: "admin",
-    password:"admin",
+    user: "root",
+    password:"19682121",
     database:"VERKAUFDataBase"
 });
 connection.connect((err) => {
@@ -303,5 +303,7 @@ app.get("/login", (req, res) => {
   );
 });
 
+app.use(express.static('public')); 
+app.use('/phoneImg', express.static('images'));
 
 app.listen(3001);

@@ -267,11 +267,21 @@ app.get("/logincheck", (req, res) => {
   }
 });
 
-app.post("/login", (req, res) => {
+app.get("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
+  if (!req.body.name) {
+    return res.status(400).json({
+      status: 'error',
+      error: 'req body cannot be empty',
+    });
+  }
 
-  db.query(
+  res.status(200).json({
+    status: 'succes',
+    data: req.body,
+  })
+   db.query(
     "SELECT * FROM users WHERE username = ?;",
     username,
     (err, result) => {

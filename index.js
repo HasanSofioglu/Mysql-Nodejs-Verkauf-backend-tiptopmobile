@@ -284,7 +284,7 @@ app.post("/login", (req, res) => {
   const password = req.body.password;
 
   db.query(
-    "SELECT * FROM users WHERE username = ?;",
+    "SELECT * FROM users WHERE username = ('?');",
     username,
     (err, result) => {
       if (err) {

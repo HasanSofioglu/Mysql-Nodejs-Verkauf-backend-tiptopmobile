@@ -13,21 +13,12 @@ const { markAsUntransferable } = require('worker_threads');
 
 
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host:"localhost",
     user: "admin",
     password:"H_.s5392112",
     database:"VERKAUFDataBase", 
 });
-
-connection.connect(function(err) {
-  if (err) {
-    return console.error('error: ' + err.message);
-  }
-
-  console.log('Connected to the MySQL server.');
-});
-
 const fileUpload = require('express-fileupload');
  
 

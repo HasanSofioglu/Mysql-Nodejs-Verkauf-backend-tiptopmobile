@@ -18,7 +18,7 @@ const db = mysql.createConnection({
     user: "root",
     password:"19682121",
     database:"VERKAUFDataBase",
-    port:"3006"
+
 });
 connection.connect((err) => {
   if (err) {

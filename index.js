@@ -15,8 +15,8 @@ const { markAsUntransferable } = require('worker_threads');
 
 const db = mysql.createConnection({
     host:"localhost",
-    user: "root",
-    password:"19682121",
+    user: "admin",
+    password:"admin",
     database:"VERKAUFDataBase"
 });
 connection.connect((err) => {

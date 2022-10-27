@@ -303,7 +303,5 @@ app.get("/login", (req, res) => {
   );
 });
 
-app.use(express.static('public')); 
-app.use('/phoneImg', express.static('images'));
 
 app.listen(3001);

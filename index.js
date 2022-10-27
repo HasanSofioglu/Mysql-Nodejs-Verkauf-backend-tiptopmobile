@@ -276,7 +276,7 @@ app.get("/login", (req, res) => {
     username,
     (err, result) => {
       if (err) {
-        res.send({ err: err });
+        res.status(500).json({error: err})
       }
 
       if (result) {

@@ -81,7 +81,7 @@ app.post("/api/phone/insert", (req,res)=>{
   const PhonePrice_2 = req.body.phonePrice_2
   const PhonePrice_3 = req.body.phonePrice_3
   const PhonePrice_4 = req.body.phonePrice_4
-console.log(phoneBrand+phoneName)
+
 try{
 
   const sqlInsert=

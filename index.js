@@ -56,7 +56,7 @@ app.use(
 
 app.post('/upload/:id', (req, res) => {
   const pid = req.params.id;
-  
+  console.log(req.params.id)
   if (req.files === null) {
     return res.status(400).json({ msg: 'No file uploaded' });
   }

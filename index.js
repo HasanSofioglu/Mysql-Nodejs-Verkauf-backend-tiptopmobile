@@ -111,7 +111,7 @@ try{
    db.query(sqlDelete,[PhoneId])
 
 
-  console.log("successful update")
+  console.log("successful delete")
 
 }catch(error){
 console.log(error)
@@ -169,10 +169,16 @@ try{
 
     const sqlInsert=
     "INSERT INTO phone_form (vorName,nachName,mailAdress,telefon,strasse,houseNumber,stadt,postCode,payment,info,phoneName,phonePrice) Values (?,?,?,?,?,?,?,?,?,?,?,?);"
-     db.query(sqlInsert,[Vorname,Nachname,Mailadress,Telefon,Strasse,Haousenumber,Stadt,PostCode,Payment,Info,SelectedPhoneName,PhonePrice])
+     db.query(sqlInsert,[Vorname,Nachname,Mailadress,Telefon,Strasse,Haousenumber,Stadt,PostCode,Payment,Info,SelectedPhoneName,PhonePrice],(err)=>{
+      if (err) {
+        return res.send({ err: err });
+       }
+       console.log("successful insert")
+ 
+  });
   
 
-    console.log("successful insert")
+   
 
 }catch(error){
 

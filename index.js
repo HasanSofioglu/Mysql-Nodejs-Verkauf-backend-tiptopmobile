@@ -108,10 +108,15 @@ try{
 
   const sqlDelete=
   "DELETE FROM phones WHERE id = ?;"
-   db.query(sqlDelete,[PhoneId])
+   db.query(sqlDelete,[PhoneId], (err) => {
+    if(err){return console.log(err)}
+ 
+   return console.log("successful delete")
+  }
+  
+  )
 
 
- return console.log("successful delete")
 
 }catch(error){
 console.log(error)

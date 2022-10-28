@@ -85,7 +85,7 @@ app.post("/api/phone/insert", (req,res)=>{
 try{
 
   const sqlInsert=
-  "INSERT INTO phones (PhonesBrand,PhonesName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4) Values ?,?,?,?,?,?;"
+  "INSERT INTO phones (PhonesBrand,PhonesName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4) Values (?,?,?,?,?,?);"
    db.query(sqlInsert,[PhoneBrand,PhoneName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4])
 
 

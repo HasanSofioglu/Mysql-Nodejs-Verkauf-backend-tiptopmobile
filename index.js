@@ -284,11 +284,11 @@ app.post("/login", (req, res) => {
   const password = req.body.password;
 
   db.query(
-    "SELECT * FROM users WHERE username = ('?');",
+    "SELECT * FROM users WHERE username = ?;",
     username,
     (err, result) => {
       if (err) {
-        res.send({ err: err });
+       return res.send({ err: err });
       }
 
       if (result.length > 0) {

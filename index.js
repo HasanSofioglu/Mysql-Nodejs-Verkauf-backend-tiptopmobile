@@ -56,7 +56,7 @@ app.use(
 
 app.post('/upload/:id', (req, res) => {
   const pid = req.params.id;
-  console.log(pid)
+  
   if (req.files === null) {
     return res.status(400).json({ msg: 'No file uploaded' });
   }
@@ -65,11 +65,11 @@ app.post('/upload/:id', (req, res) => {
 
   file.mv(`${__dirname}/public/phoneImg/${pid+".png"}`, err => {
     if (err) {
-      console.error(err);
+      console.log(err);
       return res.status(500).send(err);
     }
 
-    res.json({ fileName: file.name, filePath: `/phoneImg/${file.name}` });
+  return  res.json({ fileName: file.name, filePath: `/phoneImg/${file.name}` });
   });
 });
 

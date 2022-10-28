@@ -207,8 +207,8 @@ app.get("/api/get",(req,res)=>{
   const sqlSelect= "SELECT * FROM phones"
 
   db.query(sqlSelect,(err,result)=>{
+    
     res.send(result);  
-     return res.send(result);  
  
   });
 

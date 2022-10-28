@@ -209,7 +209,7 @@ app.get("/api/get/:brand",(req,res)=>{
 });
 app.get("/api/get",(req,res)=>{
 
-  const sqlSelect= "SELECT * FROM phones"
+  const sqlSelect= "SELECT * FROM phones;"
 
   db.query(sqlSelect,(err,result)=>{
     
@@ -257,7 +257,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 60 * 60 * 24,
+      expires: 30*24*3600000,
     },
   })
 );

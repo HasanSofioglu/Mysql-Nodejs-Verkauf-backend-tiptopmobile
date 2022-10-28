@@ -89,7 +89,7 @@ try{
    db.query(sqlInsert,[PhoneBrand,PhoneName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4])
 
 
-  alert("successful insert")
+  console.log("successful insert")
 
 }catch(error){
 console.log(error)
@@ -111,7 +111,7 @@ try{
    db.query(sqlDelete,[PhoneId])
 
 
-  alert("successful update")
+  console.log("successful update")
 
 }catch(error){
 console.log(error)
@@ -138,7 +138,7 @@ try{
    db.query(sqlUpdate,[PhoneBrand,PhoneName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4,PhoneId])
 
 
-  alert("successful update")
+  console.log("successful update")
 
 }catch(error){
 console.log(error)
@@ -172,7 +172,7 @@ try{
      db.query(sqlInsert,[Vorname,Nachname,Mailadress,Telefon,Strasse,Haousenumber,Stadt,PostCode,Payment,Info,SelectedPhoneName,PhonePrice])
   
 
-    alert("successful insert")
+    console.log("successful insert")
 
 }catch(error){
 

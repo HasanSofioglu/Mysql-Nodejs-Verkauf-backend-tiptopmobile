@@ -240,7 +240,7 @@ app.get("/api/detail/:phoneId",(req,res)=>{
 
     db.query(sqlSelect,[phoneId],(err,result)=>{
 
-        res.send(result);  
+      return  res.send(result);  
    
     });
 });

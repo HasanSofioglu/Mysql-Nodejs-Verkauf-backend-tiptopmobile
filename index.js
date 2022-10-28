@@ -209,7 +209,7 @@ app.get("/api/get",(req,res)=>{
 
 app.get("/api/form",(req,res)=>{
 
-  const sqlSelect= "SELECT * FROM phone_form"
+  const sqlSelect= "SELECT * FROM phone_form;"
 
   db.query(sqlSelect,(err,result)=>{
 
@@ -224,7 +224,7 @@ app.get("/api/detail/:phoneId",(req,res)=>{
  
   
 
-    const sqlSelect= "SELECT * FROM Phones WHERE id = ?;"
+    const sqlSelect= "SELECT * FROM phones WHERE id = ?;"
 
     db.query(sqlSelect,[phoneId],(err,result)=>{
 

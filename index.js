@@ -89,10 +89,10 @@ try{
    db.query(sqlInsert,[PhoneBrand,PhoneName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4])
 
 
-  console.log("successful insert")
+ return console.log("successful insert")
 
 }catch(error){
-console.log(error)
+return console.log(error)
 
 }
  

@@ -103,7 +103,7 @@ return console.log(error)
 app.delete("/api/delete/:id", (req,res)=>{
   const PhoneId = req.params.id;
 
-
+console.log(PhoneId)
 try{
 
   const sqlDelete=

@@ -85,7 +85,7 @@ app.post("/api/phone/insert", (req,res)=>{
 try{
 
   const sqlInsert=
-  "INSERT INTO Phones (PhonesBrand,PhonesName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4) Values (?,?,?,?,?,?);"
+  "INSERT INTO phones (PhonesBrand,PhonesName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4) Values (?,?,?,?,?,?);"
    db.query(sqlInsert,[PhoneBrand,PhoneName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4])
 
 
@@ -107,7 +107,7 @@ app.delete("/api/delete/:id", (req,res)=>{
 try{
 
   const sqlDelete=
-  "DELETE FROM Phones WHERE id = ?;"
+  "DELETE FROM phones WHERE id = ?;"
    db.query(sqlDelete,[PhoneId])
 
 
@@ -134,7 +134,7 @@ app.post("/api/update/:id", (req,res)=>{
 try{
 
   const sqlUpdate=
-  "UPDATE Phones SET PhonesBrand = ?,PhonesName = ?,PhonePrice_1 = ?,PhonePrice_2 = ?,PhonePrice_3 = ?,PhonePrice_4 = ?  WHERE id = ?;"
+  "UPDATE phones SET PhonesBrand = ?,PhonesName = ?,PhonePrice_1 = ?,PhonePrice_2 = ?,PhonePrice_3 = ?,PhonePrice_4 = ?  WHERE id = ?;"
    db.query(sqlUpdate,[PhoneBrand,PhoneName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4,PhoneId])
 
 
@@ -188,7 +188,7 @@ app.get("/api/get/:brand",(req,res)=>{
  
   
 
-    const sqlSelect= "SELECT * FROM Phones WHERE PhonesBrand LIKE ?;"
+    const sqlSelect= "SELECT * FROM phones WHERE PhonesBrand LIKE ?;"
 
     db.query(sqlSelect,[brand +'%'],(err,result)=>{
 
@@ -198,13 +198,14 @@ app.get("/api/get/:brand",(req,res)=>{
 });
 app.get("/api/get",(req,res)=>{
 
-  const sqlSelect= "SELECT * FROM Phones"
+  const sqlSelect= "SELECT * FROM phones"
 
   db.query(sqlSelect,(err,result)=>{
-
-      res.send(result);  
+    res.send(result);  
+     return res.send(result);  
  
   });
+
 });
 
 app.get("/api/form",(req,res)=>{

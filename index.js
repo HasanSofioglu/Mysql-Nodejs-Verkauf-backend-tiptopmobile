@@ -46,7 +46,7 @@ const saltRounds = 10;
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://verkaufen.tiptopmobile.de/"],
+    origin: ["https://verkaufen.tiptopmobile.de/"],
     methods: ["GET", "POST"],
     credentials: true,
   })

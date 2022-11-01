@@ -1,5 +1,3 @@
-
-
 const bodyParser = require('body-parser');
 const express = require('express')
 const cors = require('cors')
@@ -15,30 +13,14 @@ const { markAsUntransferable } = require('worker_threads');
 
 
 
-
-const db = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'H_.s5392112',
-  database : 'VERKAUFDataBase'
-});
-
-
-db.connect((err) => {
-  if (err) {
-      console.log('Connection error message: ' + err.message);
-      return;
-  }
-  console.log('Connected!')
+const db = mysql.createPool({
+    host:"localhost",
+    user: "root",
+    password:"password",
+    database:"VERKAUFDataBase", 
 });
 const fileUpload = require('express-fileupload');
  
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-  });
 
 app.use(express())
 app.use(fileUpload());
@@ -52,7 +34,7 @@ const saltRounds = 10;
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://verkaufen.tiptopmobile.de/"],
+    origin: ["https://verkaufen.tiptopmobile.de"],
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -62,7 +44,7 @@ app.use(
 
 app.post('/upload/:id', (req, res) => {
   const pid = req.params.id;
-  console.log(req.params.id)
+  console.log(pid)
   if (req.files === null) {
     return res.status(400).json({ msg: 'No file uploaded' });
   }
@@ -71,11 +53,11 @@ app.post('/upload/:id', (req, res) => {
 
   file.mv(`${__dirname}/public/phoneImg/${pid+".png"}`, err => {
     if (err) {
-      console.log(err);
+      console.error(err);
       return res.status(500).send(err);
     }
 
-  return  res.json({ fileName: file.name, filePath: `/phoneImg/${file.name}` });
+    res.json({ fileName: file.name, filePath: `/phoneImg/${file.name}` });
   });
 });
 
@@ -91,14 +73,14 @@ app.post("/api/phone/insert", (req,res)=>{
 try{
 
   const sqlInsert=
-  "INSERT INTO phones (PhonesBrand,PhonesName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4) Values (?,?,?,?,?,?);"
+  "INSERT INTO Phones (PhonesBrand,PhonesName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4) Values (?,?,?,?,?,?);"
    db.query(sqlInsert,[PhoneBrand,PhoneName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4])
 
 
- return console.log("successful insert")
+  alert("successful insert")
 
 }catch(error){
-return console.log(error)
+console.log(error)
 
 }
  
@@ -109,20 +91,15 @@ return console.log(error)
 app.delete("/api/delete/:id", (req,res)=>{
   const PhoneId = req.params.id;
 
-console.log(PhoneId)
+
 try{
 
   const sqlDelete=
-  "DELETE FROM phones WHERE id = ?;"
-   db.query(sqlDelete,[PhoneId], (err) => {
-    if(err){return console.log(err)}
- 
-   return console.log("successful delete")
-  }
-  
-  )
+  "DELETE FROM Phones WHERE id = ?;"
+   db.query(sqlDelete,[PhoneId])
 
 
+  alert("successful update")
 
 }catch(error){
 console.log(error)
@@ -145,11 +122,11 @@ app.post("/api/update/:id", (req,res)=>{
 try{
 
   const sqlUpdate=
-  "UPDATE phones SET PhonesBrand = ?,PhonesName = ?,PhonePrice_1 = ?,PhonePrice_2 = ?,PhonePrice_3 = ?,PhonePrice_4 = ?  WHERE id = ?;"
+  "UPDATE Phones SET PhonesBrand = ?,PhonesName = ?,PhonePrice_1 = ?,PhonePrice_2 = ?,PhonePrice_3 = ?,PhonePrice_4 = ?  WHERE id = ?;"
    db.query(sqlUpdate,[PhoneBrand,PhoneName,PhonePrice_1,PhonePrice_2,PhonePrice_3,PhonePrice_4,PhoneId])
 
 
-  console.log("successful update")
+  alert("successful update")
 
 }catch(error){
 console.log(error)
@@ -180,16 +157,10 @@ try{
 
     const sqlInsert=
     "INSERT INTO phone_form (vorName,nachName,mailAdress,telefon,strasse,houseNumber,stadt,postCode,payment,info,phoneName,phonePrice) Values (?,?,?,?,?,?,?,?,?,?,?,?);"
-     db.query(sqlInsert,[Vorname,Nachname,Mailadress,Telefon,Strasse,Haousenumber,Stadt,PostCode,Payment,Info,SelectedPhoneName,PhonePrice],(err)=>{
-      if (err) {
-        return res.send({ err: err });
-       }
-       console.log("successful insert")
- 
-  });
+     db.query(sqlInsert,[Vorname,Nachname,Mailadress,Telefon,Strasse,Haousenumber,Stadt,PostCode,Payment,Info,SelectedPhoneName,PhonePrice])
   
 
-   
+    alert("successful insert")
 
 }catch(error){
 
@@ -205,7 +176,7 @@ app.get("/api/get/:brand",(req,res)=>{
  
   
 
-    const sqlSelect= "SELECT * FROM phones WHERE PhonesBrand LIKE ?;"
+    const sqlSelect= "SELECT * FROM Phones WHERE PhonesBrand LIKE ?;"
 
     db.query(sqlSelect,[brand +'%'],(err,result)=>{
 
@@ -215,19 +186,18 @@ app.get("/api/get/:brand",(req,res)=>{
 });
 app.get("/api/get",(req,res)=>{
 
-  const sqlSelect= "SELECT * FROM phones;"
+  const sqlSelect= "SELECT * FROM Phones"
 
   db.query(sqlSelect,(err,result)=>{
-    
-    res.send(result);  
+
+      res.send(result);  
  
   });
-
 });
 
 app.get("/api/form",(req,res)=>{
 
-  const sqlSelect= "SELECT * FROM phone_form;"
+  const sqlSelect= "SELECT * FROM phone_form"
 
   db.query(sqlSelect,(err,result)=>{
 
@@ -242,11 +212,11 @@ app.get("/api/detail/:phoneId",(req,res)=>{
  
   
 
-    const sqlSelect= "SELECT * FROM phones WHERE id = ?;"
+    const sqlSelect= "SELECT * FROM Phones WHERE id = ?;"
 
     db.query(sqlSelect,[phoneId],(err,result)=>{
 
-      return  res.send(result);  
+        res.send(result);  
    
     });
 });
@@ -263,7 +233,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 30*24*3600000,
+      expires: 60 * 60 * 24,
     },
   })
 );
@@ -291,9 +261,9 @@ app.post("/register", (req, res) => {
 
 app.get("/logincheck", (req, res) => {
   if (req.session.user) {
-   return res.send({ loggedIn: true, user: req.session.user });
+    res.send({ loggedIn: true, user: req.session.user });
   } else {
-   return res.send({ loggedIn: false });
+    res.send({ loggedIn: false });
   }
 });
 
@@ -306,7 +276,7 @@ app.post("/login", (req, res) => {
     username,
     (err, result) => {
       if (err) {
-       return res.send({ err: err });
+      return  res.send({ err: err });
       }
 
       if (result.length > 0) {

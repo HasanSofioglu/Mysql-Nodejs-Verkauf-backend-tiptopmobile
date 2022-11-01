@@ -34,6 +34,12 @@ db.connect((err) => {
 const fileUpload = require('express-fileupload');
  
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+  });
+
 app.use(express())
 app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: true }));

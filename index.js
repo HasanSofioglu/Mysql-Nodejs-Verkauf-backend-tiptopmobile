@@ -17,10 +17,10 @@ const { markAsUntransferable } = require('worker_threads');
 
 
 const db = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'H_.s5392112',
-  database : 'VERKAUFDataBase'
+  host     : '',
+  user     : '',
+  password : '.',
+  database : ''
 });
 
 
